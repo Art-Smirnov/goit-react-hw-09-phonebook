@@ -1,0 +1,14 @@
+@import './variables';
+@import './colors';
+@import './placeholders';
+
+.form {
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form__title {
+  text-align: center;
+}

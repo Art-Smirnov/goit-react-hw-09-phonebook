@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAIA,AAAA,KAAK,CAAC;EACJ,SAAS,EAAE,KAAK;EAChB,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,WAAW,EAAE,MAAM;CACpB;;AAED,AAAA,YAAY,CAAC;EACX,UAAU,EAAE,MAAM;CACnB",
+    "sources": [
+        "shared.scss",
+        "_variables.scss",
+        "_colors.scss",
+        "_placeholders.scss"
+    ],
+    "names": [],
+    "file": "shared.css"
+}

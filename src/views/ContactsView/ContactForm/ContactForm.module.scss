@@ -1,0 +1,11 @@
+@import '../../../styles/shared';
+
+.form {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid $black;
+  border-radius: 4px;
+  margin-bottom: 40px;
+}
