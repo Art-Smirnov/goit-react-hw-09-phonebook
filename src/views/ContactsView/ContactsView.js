@@ -1,34 +1,33 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { contactsOperations, contactsSelectors } from '../../redux/contacts';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import Spiner from '../../Components/Spiner';
 
-class ContactsView extends Component {
-  componentDidMount() {
-    this.props.fetchContacts();
-  }
+export default function ContactsView() {
+  const dispatch = useDispatch();
+  const error = useSelector(contactsSelectors.getError);
 
-  render() {
-    const { isLoadingContacts, error } = this.props;
-    return (
-      <>
-        {error ? (
-          <p>Whoops, something went wrong: {error.message}</p>
-        ) : (
-          <div>
-            <h1>Phonebook</h1>
-            <ContactForm />
-            <h2>Contacts</h2>
-            <Filter />
-            <Spiner isLoading={isLoadingContacts} />
-            <ContactList />
-          </div>
-        )}
-      </>
-    );
-  }
+  useEffect(() => {
+    dispatch(contactsOperations.fetchContacts());
+  }, [dispatch]);
+  return (
+    <>
+      {error ? (
+        <p>Whoops, something went wrong: {error.message}</p>
+      ) : (
+        <div>
+          <h1>Phonebook</h1>
+          <ContactForm />
+          <h2>Contacts</h2>
+          <Filter />
+          <Spiner />
+          <ContactList />
+        </div>
+      )}
+    </>
+  );
 }
-
-export default ContactsView;

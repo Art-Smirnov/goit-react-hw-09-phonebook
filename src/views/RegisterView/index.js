@@ -1,1 +1,1 @@
-export { default } from './RegisterView.container';
+export { default } from './RegisterView';

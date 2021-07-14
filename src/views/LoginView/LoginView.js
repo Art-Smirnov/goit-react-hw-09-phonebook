@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback } from 'react';
 import { TextField, Button, withStyles } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+
+import { authOperations } from '../../redux/auth';
 
 const stylesMI = {
   input: {
@@ -8,58 +11,71 @@ const stylesMI = {
   },
 };
 
-class LoginView extends Component {
-  state = {
-    email: '',
-    password: '',
+const LoginView = ({ classes }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const onLogin = useCallback(
+    obj => {
+      dispatch(authOperations.logIn(obj));
+    },
+    [dispatch],
+  );
+
+  const handleEmailChange = useCallback(e => {
+    setEmail(e.currentTarget.value);
+  }, []);
+
+  const handlePasswordChange = useCallback(e => {
+    setPassword(e.currentTarget.value);
+  }, []);
+
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+
+      onLogin({ email, password });
+      reset();
+    },
+    [email, onLogin, password],
+  );
+
+  const reset = () => {
+    setEmail('');
+    setPassword('');
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
+  return (
+    <div>
+      <h1 className="form__title">Login</h1>
 
-  handleSubmit = e => {
-    e.preventDefault();
+      <form onSubmit={handleSubmit} className="form" autoComplete="off">
+        <TextField
+          className={classes.input}
+          label="Mail"
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleEmailChange}
+          required
+        />
+        <TextField
+          className={classes.input}
+          label="Password"
+          type="password"
+          name="password"
+          value={password}
+          onChange={handlePasswordChange}
+          required
+        />
 
-    this.props.onLogin(this.state);
-
-    this.setState({ email: '', password: '' });
-  };
-
-  render() {
-    const { email, password } = this.state;
-    const { classes } = this.props;
-    return (
-      <div>
-        <h1 className="form__title">Login</h1>
-
-        <form onSubmit={this.handleSubmit} className="form" autoComplete="off">
-          <TextField
-            className={classes.input}
-            label="Mail"
-            type="email"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-            required
-          />
-          <TextField
-            className={classes.input}
-            label="Password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-            required
-          />
-
-          <Button variant="outlined" type="submit">
-            Login
-          </Button>
-        </form>
-      </div>
-    );
-  }
-}
+        <Button variant="outlined" type="submit">
+          Login
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 export default withStyles(stylesMI)(LoginView);

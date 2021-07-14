@@ -1,1 +1,1 @@
-export { default } from './ContactsView.container';
+export { default } from './ContactsView';

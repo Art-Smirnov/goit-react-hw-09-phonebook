@@ -1,1 +1,1 @@
-export { default } from './LoginView.container';
+export { default } from './LoginView';

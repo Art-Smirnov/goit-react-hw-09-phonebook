@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import React, { useState, useCallback } from 'react';
+import { TextField, Button, withStyles } from '@material-ui/core';
 
-import { withStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
+
+import { authOperations } from '../../redux/auth';
 
 const stylesMI = {
   input: {
@@ -10,70 +12,90 @@ const stylesMI = {
   },
 };
 
-class RegisterView extends Component {
-  state = {
-    name: '',
-    email: '',
-    password: '',
-  };
+const RegisterView = ({ classes }) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
+  const onRegister = useCallback(
+    obj => {
+      dispatch(authOperations.register(obj));
+    },
+    [dispatch],
+  );
 
-  handleSubmit = e => {
-    e.preventDefault();
+  const handleChange = useCallback(({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
 
-    this.props.onRegister(this.state);
+      default:
+        console.warn(`Такой тип поля - ${name} не обрабатывается`);
+    }
+  }, []);
 
-    this.setState({ name: '', email: '', password: '' });
-  };
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
 
-  render() {
-    const { name, email, password } = this.state;
-    const { classes } = this.props;
-    return (
-      <div>
-        <h1 className="form__title">Register</h1>
+      onRegister({ name, email, password });
 
-        <form onSubmit={this.handleSubmit} className="form" autoComplete="off">
-          <TextField
-            className={classes.input}
-            label="Name"
-            type="text"
-            name="name"
-            value={name}
-            onChange={this.handleChange}
-            required
-          />
+      setName('');
+      setEmail('');
+      setPassword('');
+    },
+    [email, name, onRegister, password],
+  );
 
-          <TextField
-            className={classes.input}
-            label="Mail"
-            type="email"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-            required
-          />
+  return (
+    <div>
+      <h1 className="form__title">Register</h1>
 
-          <TextField
-            className={classes.input}
-            label="Password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-            required
-          />
+      <form onSubmit={handleSubmit} className="form" autoComplete="off">
+        <TextField
+          className={classes.input}
+          label="Name"
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleChange}
+          required
+        />
 
-          <Button variant="outlined" type="submit">
-            Register
-          </Button>
-        </form>
-      </div>
-    );
-  }
-}
+        <TextField
+          className={classes.input}
+          label="Mail"
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+          required
+        />
+
+        <TextField
+          className={classes.input}
+          label="Password"
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          required
+        />
+
+        <Button variant="outlined" type="submit">
+          Register
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 export default withStyles(stylesMI)(RegisterView);

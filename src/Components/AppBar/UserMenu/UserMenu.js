@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Button } from 'react-bootstrap';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const UserMenu = ({ Avatar, name, onLogout }) => (
-  <>
-    <Avatar style={{ color: 'grey' }} className="me-2" />
-    <Navbar.Text className="me-2">Welcome, {name}</Navbar.Text>
-    <Button size="sm" variant="outline-secondary" onClick={onLogout}>
-      Logout
-    </Button>{' '}
-  </>
-);
+import { authSelectors, authOperations } from '../../../redux/auth';
 
-export default UserMenu;
+export default function UserMenu() {
+  const dispatch = useDispatch();
+  const name = useSelector(authSelectors.getUserName);
+
+  const onLogOut = useCallback(() => {
+    dispatch(authOperations.logOut());
+  }, [dispatch]);
+
+  return (
+    <>
+      <AccountCircleIcon style={{ color: 'grey' }} className="me-2" />
+      <Navbar.Text className="me-2">Welcome, {name}</Navbar.Text>
+      <Button size="sm" variant="outline-secondary" onClick={onLogOut}>
+        Logout
+      </Button>{' '}
+    </>
+  );
+}
