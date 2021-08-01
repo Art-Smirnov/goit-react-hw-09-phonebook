@@ -17,7 +17,7 @@ const Filter = ({ classes }) => {
 
   const onChange = useCallback(
     e => {
-      dispatch(changeFilter(e.target.value));
+      dispatch(changeFilter(e.target.value.trim()));
     },
     [dispatch],
   );

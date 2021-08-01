@@ -14,6 +14,7 @@ export default function ContactsView() {
   useEffect(() => {
     dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
+
   return (
     <>
       {error ? (

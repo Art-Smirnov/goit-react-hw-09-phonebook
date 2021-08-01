@@ -25,6 +25,10 @@
   text-align: center;
 }
 
+.ContactListItem__data {
+  font-size: 20px;
+}
+
 .delete__btn {
   background-color: #f44336;
   color: #fff;
