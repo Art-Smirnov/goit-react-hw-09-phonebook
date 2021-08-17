@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { TextField, Button, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 
+import MyButton from '../../../Components/UI/button/MyButton';
+import MyInput from '../../../Components/UI/input/MyInput';
 import { contactsSelectors, contactsOperations } from '../../../redux/contacts';
 import style from './ContactForm.module.scss';
 
@@ -54,19 +56,18 @@ const ContactForm = ({ classes }) => {
 
   return (
     <form className={style.form} onSubmit={handleSubmit}>
-      <TextField
+      <MyInput
         className={classes.input}
-        label="Name"
         onChange={onNameChange}
         value={name}
+        label="Name"
         type="text"
         name="name"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
         required
       />
-
-      <TextField
+      <MyInput
         className={classes.input}
         label="Number"
         onChange={onNumberChange}
@@ -77,9 +78,7 @@ const ContactForm = ({ classes }) => {
         title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
         required
       />
-      <Button variant="contained" color="primary" type="submit">
-        Add contact
-      </Button>
+      <MyButton>Add contact</MyButton>
     </form>
   );
 };
