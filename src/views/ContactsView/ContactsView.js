@@ -10,7 +10,6 @@ import Spiner from '../../Components/Spiner';
 export default function ContactsView() {
   const dispatch = useDispatch();
   const error = useSelector(contactsSelectors.getError);
-  const contacts = useSelector(contactsSelectors.getVisibleContacts);
 
   useEffect(() => {
     dispatch(contactsOperations.fetchContacts());
@@ -28,7 +27,7 @@ export default function ContactsView() {
           <Filter />
           <Spiner />
 
-          {contacts.length ? <ContactList /> : <p>There are no contacts!</p>}
+          <ContactList />
         </div>
       )}
     </>

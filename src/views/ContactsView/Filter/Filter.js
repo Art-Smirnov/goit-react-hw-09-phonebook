@@ -2,7 +2,8 @@ import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { contactsSelectors, changeFilter } from '../../../redux/contacts';
-import { TextField, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
+import MyInput from '../../../Components/UI/input/MyInput';
 
 const stylesMI = {
   input: {
@@ -21,8 +22,9 @@ const Filter = ({ classes }) => {
     },
     [dispatch],
   );
+
   return (
-    <TextField
+    <MyInput
       className={classes.input}
       id="standard-basic"
       label="Find your contacts by name"

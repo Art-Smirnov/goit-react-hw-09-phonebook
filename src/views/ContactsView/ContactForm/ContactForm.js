@@ -78,7 +78,9 @@ const ContactForm = ({ classes }) => {
         title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
         required
       />
-      <MyButton>Add contact</MyButton>
+      <MyButton variant="contained" color="primary" type="submit">
+        Add contact
+      </MyButton>
     </form>
   );
 };

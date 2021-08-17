@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Button } from '@material-ui/core';
+import MyButton from '../../../../Components/UI/button/MyButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { gsap, Power3 } from 'gsap/all';
 import { useEffect } from 'react';
@@ -37,7 +37,7 @@ export default function ContactListItem() {
       <span className="ContactListItem__data">
         {name}: {number}
       </span>
-      <Button
+      <MyButton
         startIcon={<DeleteIcon />}
         variant="contained"
         color="secondary"
@@ -45,7 +45,7 @@ export default function ContactListItem() {
         onClick={() => onDelete(id)}
       >
         DELETE
-      </Button>
+      </MyButton>
     </li>
   ));
 }
