@@ -21,3 +21,5 @@ export const deleteContactSuccess = createAction(
 export const deleteContactError = createAction('contacts/deleteContactError');
 
 export const changeFilter = createAction('contacts/changeFilter');
+
+export const setModal = createAction('contacts/setModal');

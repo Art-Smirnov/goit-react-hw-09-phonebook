@@ -4,8 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import MyButton from '../../../Components/UI/button/MyButton';
 import MyInput from '../../../Components/UI/input/MyInput';
-import { contactsSelectors, contactsOperations } from '../../../redux/contacts';
-import style from './ContactForm.module.scss';
+import {
+  contactsSelectors,
+  contactsOperations,
+  setModal,
+} from '../../../redux/contacts';
+import styles from './ContactForm.module.scss';
 
 const stylesMI = {
   input: {
@@ -50,12 +54,13 @@ const ContactForm = ({ classes }) => {
 
       setName('');
       setNumber('');
+      dispatch(setModal(false));
     },
-    [contacts, name, number, onSubmit],
+    [contacts, name, number, onSubmit, dispatch],
   );
 
   return (
-    <form className={style.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <MyInput
         className={classes.input}
         onChange={onNameChange}
@@ -78,7 +83,12 @@ const ContactForm = ({ classes }) => {
         title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
         required
       />
-      <MyButton variant="contained" color="primary" type="submit">
+      <MyButton
+        className={styles.btn}
+        variant="contained"
+        color="primary"
+        type="submit"
+      >
         Add contact
       </MyButton>
     </form>

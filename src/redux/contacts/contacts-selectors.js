@@ -6,6 +6,8 @@ const getError = state => state.contacts.error;
 
 const getFilter = state => state.contacts.filter;
 
+const getModal = state => state.contacts.modal;
+
 const getAllContacts = state => state.contacts.items;
 
 const getVisibleContacts = createSelector(
@@ -22,6 +24,7 @@ const contactsSelectors = {
   getLoading,
   getError,
   getFilter,
+  getModal,
   getAllContacts,
   getVisibleContacts,
 };

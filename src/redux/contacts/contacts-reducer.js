@@ -12,13 +12,12 @@ import {
   deleteContactSuccess,
   deleteContactError,
   changeFilter,
+  setModal,
 } from './contacts-actions';
 
 const items = createReducer([], {
   [fetchContactsSuccess]: (_, { payload }) => payload,
-
   [addContactSuccess]: (state, { payload }) => [payload, ...state],
-
   [deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 });
@@ -41,6 +40,10 @@ const filter = createReducer('', {
   [changeFilter]: (_, { payload }) => payload,
 });
 
+const modal = createReducer(false, {
+  [setModal]: (_, { payload }) => payload,
+});
+
 const error = createReducer(null, {
   [fetchContactsError]: (_, { payload }) => payload,
   [addContactError]: (_, { payload }) => payload,
@@ -52,4 +55,5 @@ export default combineReducers({
   filter,
   loading,
   error,
+  modal,
 });
